@@ -1,0 +1,671 @@
+
+/* =========================
+   GLOBAL CSS
+========================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary: #198754;
+    --primary-light: #e8f5ee;
+    --dark: #202b24;
+    --text: #647067;
+    --white: #ffffff;
+    --border: #e5ebe7;
+    --bg: #f5f8f6;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: var(--bg);
+    color: var(--dark);
+}
+
+a {
+    text-decoration: none;
+}
+
+/* =========================
+   APP LAYOUT
+========================= */
+
+.app-container {
+    min-height: 100vh;
+}
+
+/* =========================
+   SIDEBAR
+========================= */
+
+.sidebar {
+    width: 250px;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: var(--white);
+    border-right: 1px solid var(--border);
+    padding: 25px 18px;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    transition: 0.3s;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 40px;
+}
+
+.brand-icon {
+    width: 40px;
+    height: 40px;
+    background: var(--primary);
+    color: white;
+    border-radius: 10px;
+    display: grid;
+    place-items: center;
+    font-size: 22px;
+}
+
+.brand h4 {
+    font-size: 19px;
+    font-weight: 700;
+    margin: 0;
+}
+
+.brand h4 span {
+    color: var(--primary);
+}
+
+.brand-credit {
+    display: block;
+    margin-top: 2px;
+    color: #8a968e;
+    font-size: 10px;
+    line-height: 1.2;
+    white-space: nowrap;
+}
+
+.menu-heading {
+    font-size: 11px;
+    color: #9aa69e;
+    font-weight: 700;
+    letter-spacing: 1px;
+    margin: 15px 0 12px;
+}
+
+.sidebar-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.menu-link {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    padding: 12px 14px;
+    color: var(--text);
+    border-radius: 8px;
+    font-size: 14px;
+    transition: 0.2s;
+}
+
+.menu-link i {
+    font-size: 18px;
+}
+
+.menu-link:hover,
+.menu-link.active {
+    background: var(--primary-light);
+    color: var(--primary);
+}
+
+.sidebar-footer {
+    margin-top: auto;
+    border-top: 1px solid var(--border);
+    padding-top: 18px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.user-avatar,
+.profile-avatar {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    background: var(--primary-light);
+    color: var(--primary);
+    font-weight: bold;
+}
+
+.sidebar-footer h6 {
+    margin: 0 0 4px;
+    font-size: 13px;
+}
+
+.sidebar-footer small {
+    color: var(--text);
+}
+
+/* =========================
+   MAIN CONTENT
+========================= */
+
+.main-content {
+    margin-left: 250px;
+    min-height: 100vh;
+}
+
+/* =========================
+   NAVBAR
+========================= */
+
+.top-navbar {
+    height: 78px;
+    background: var(--white);
+    border-bottom: 1px solid var(--border);
+    padding: 0 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.top-navbar h5 {
+    font-size: 18px;
+    margin: 0 0 4px;
+}
+
+.top-navbar small {
+    color: var(--text);
+    font-size: 12px;
+}
+
+.navbar-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.search-box {
+    width: 230px;
+    background: var(--bg);
+    padding: 10px 13px;
+    border-radius: 8px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.search-box i {
+    color: var(--text);
+}
+
+.search-box input {
+    border: none;
+    outline: none;
+    background: transparent;
+    width: 100%;
+    font-size: 13px;
+}
+
+.notification-btn {
+    position: relative;
+    border: none;
+    background: transparent;
+    font-size: 21px;
+    color: var(--text);
+}
+
+.notification-btn span {
+    position: absolute;
+    width: 7px;
+    height: 7px;
+    background: red;
+    border-radius: 50%;
+    top: 2px;
+    right: 1px;
+}
+
+.profile-avatar {
+    width: 36px;
+    height: 36px;
+}
+
+.menu-toggle {
+    display: none;
+    border: none;
+    background: transparent;
+    font-size: 26px;
+    color: var(--dark);
+}
+
+/* =========================
+   DASHBOARD BODY
+========================= */
+
+.dashboard-body {
+    padding: 30px;
+}
+
+.welcome-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 28px;
+}
+
+.welcome-section h3 {
+    font-size: 23px;
+    font-weight: 700;
+    margin-bottom: 7px;
+}
+
+.welcome-section p {
+    color: var(--text);
+    font-size: 13px;
+    margin: 0;
+}
+
+.add-product-btn {
+    background: var(--primary);
+    color: white;
+    border: none;
+    padding: 11px 17px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.add-product-btn:hover {
+    background: #146c43;
+}
+
+/* =========================
+   STATISTICS CARDS
+========================= */
+
+.stat-card,
+.content-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+    height: 100%;
+}
+
+.stat-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 13px;
+    color: var(--text);
+}
+
+.stat-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    display: grid;
+    place-items: center;
+    font-size: 20px;
+}
+
+.green {
+    background: #e8f5ee;
+    color: #198754;
+}
+
+.blue {
+    background: #e8f0ff;
+    color: #3676db;
+}
+
+.orange {
+    background: #fff3df;
+    color: #e99a22;
+}
+
+.red {
+    background: #ffeaea;
+    color: #dc3545;
+}
+
+.stat-card h2 {
+    font-size: 29px;
+    font-weight: 700;
+    margin: 15px 0 5px;
+}
+
+.stat-card p {
+    color: var(--text);
+    font-size: 12px;
+    margin: 0;
+}
+
+.total-products-card {
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.total-products-card:hover,
+.total-products-card:focus {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(25, 135, 84, 0.12);
+    outline: none;
+}
+
+.report-chart-container {
+    position: relative;
+    height: 260px;
+    margin-top: 16px;
+}
+
+.report-chart-empty {
+    color: var(--text);
+    font-size: 13px;
+    padding-top: 90px;
+    text-align: center;
+}
+
+/* =========================
+   CONTENT CARDS
+========================= */
+
+.content-card {
+    padding: 22px;
+}
+
+.card-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 22px;
+}
+
+.card-heading h5 {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+.card-heading p {
+    color: var(--text);
+    font-size: 12px;
+    margin: 0;
+}
+
+.card-heading a {
+    color: var(--primary);
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.table {
+    font-size: 13px;
+    white-space: nowrap;
+}
+
+.table th {
+    color: var(--text);
+    font-size: 12px;
+    font-weight: 600;
+    background: #f8faf9;
+}
+
+.table td,
+.table th {
+    padding: 14px 10px;
+}
+
+.status {
+    padding: 6px 9px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.available {
+    background: #e8f5ee;
+    color: #198754;
+}
+
+.low {
+    background: #fff3df;
+    color: #d68b15;
+}
+
+.out {
+    background: #ffeaea;
+    color: #dc3545;
+}
+
+/* =========================
+   QUICK OVERVIEW
+========================= */
+
+.overview-item {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    margin-bottom: 10px;
+}
+
+.overview-item span {
+    color: var(--text);
+}
+
+.progress {
+    height: 7px;
+    background: #edf1ee;
+    border-radius: 10px;
+}
+
+/* =========================
+   MOBILE OVERLAY
+========================= */
+
+.sidebar-overlay {
+    display: none;
+}
+
+/* =========================
+   RESPONSIVE DESIGN
+========================= */
+
+@media (max-width: 991px) {
+
+    .sidebar {
+        transform: translateX(-100%);
+    }
+
+    .sidebar.active {
+        transform: translateX(0);
+    }
+
+    .sidebar-overlay.active {
+        display: block;
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.35);
+        z-index: 999;
+    }
+
+    .main-content {
+        margin-left: 0;
+    }
+
+    .menu-toggle {
+        display: block;
+    }
+
+    .dashboard-body {
+        padding: 22px;
+    }
+
+}
+
+@media (max-width: 576px) {
+
+    .top-navbar {
+        height: 68px;
+        padding: 0 15px;
+    }
+
+    .navbar-right {
+        gap: 12px;
+    }
+
+    .search-box {
+        display: none;
+    }
+
+    .dashboard-body {
+        padding: 18px 13px;
+    }
+
+    .welcome-section {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .welcome-section h3 {
+        font-size: 19px;
+    }
+
+    .add-product-btn {
+        width: 100%;
+    }
+
+    .stat-card {
+        padding: 16px;
+    }
+
+    .content-card {
+        padding: 15px;
+    }
+
+}
+
+
+
+/* ADD PRODUCT MODAL */
+
+.modal-content {
+    border: none;
+    border-radius: 14px;
+    overflow: hidden;
+}
+
+.modal-header {
+    padding: 20px 24px;
+    border-bottom: 1px solid var(--border);
+}
+
+.modal-title {
+    font-weight: 700;
+    color: var(--dark);
+}
+
+.modal-body {
+    padding: 24px;
+}
+
+.modal-footer {
+    padding: 16px 24px;
+    background: #f9fbf9;
+}
+
+.form-label {
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 7px;
+}
+
+.form-control,
+.form-select {
+    min-height: 43px;
+    font-size: 13px;
+    border-color: var(--border);
+    border-radius: 8px;
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(25, 135, 84, 0.10);
+}
+
+
+
+/* SALES ENTRY */
+
+.sales-entry-card {
+    margin-top: 25px;
+}
+
+.sales-entry-card .form-control,
+.sales-entry-card .form-select {
+    max-width: 100%;
+}
+
+.sales-entry-card button {
+    font-size: 13px;
+    font-weight: 600;
+    border-radius: 8px;
+    padding: 11px 20px;
+}
+
+#availableStock {
+    background: #f5f8f6;
+}
+
+@media (max-width: 576px) {
+
+    .sales-entry-card {
+        padding: 17px;
+    }
+
+    .sales-entry-card button {
+        width: 100%;
+    }
+
+}
+
+
+/* STOCK IN SECTION */
+
+#stockInForm .form-control,
+#stockInForm .form-select {
+    width: 100%;
+}
+
+#currentStock {
+    background: #f5f8f6;
+}
+
+#stockInForm button {
+    font-size: 13px;
+    font-weight: 600;
+    border-radius: 8px;
+    padding: 11px 20px;
+}
+
+@media (max-width: 576px) {
+
+    #stockInForm button {
+        width: 100%;
+    }
+
+}
