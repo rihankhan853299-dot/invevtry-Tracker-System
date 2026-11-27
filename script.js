@@ -93,6 +93,96 @@ function saveStoredArray(key, value) {
 }
 
 const products = loadStoredArray(STORAGE_KEYS.products);
+const notificationButton = document.getElementById("notificationButton");
+const notificationPanel = document.getElementById("notificationPanel");
+const notificationCount = document.getElementById("notificationCount");
+const notificationSummary = document.getElementById("notificationSummary");
+const notificationList = document.getElementById("notificationList");
+
+function renderNotifications() {
+    const lowStockProducts = getProducts().filter(function(product) {
+        return Number.isFinite(product.quantity) &&
+            Number.isFinite(product.lowStockLimit) &&
+            product.quantity <= product.lowStockLimit;
+    });
+
+    notificationCount.textContent = lowStockProducts.length > 99
+        ? "99+"
+        : String(lowStockProducts.length);
+    notificationCount.hidden = lowStockProducts.length === 0;
+    notificationButton.setAttribute(
+        "aria-label",
+        `Notifications${lowStockProducts.length ? ` (${lowStockProducts.length})` : ""}`
+    );
+    notificationSummary.textContent = lowStockProducts.length
+        ? `${lowStockProducts.length} low-stock alert${lowStockProducts.length === 1 ? "" : "s"}`
+        : "No alerts";
+    notificationList.replaceChildren();
+
+    if (lowStockProducts.length === 0) {
+        const emptyMessage = document.createElement("p");
+        emptyMessage.className = "notification-empty";
+        emptyMessage.textContent = "No low-stock notifications.";
+        notificationList.appendChild(emptyMessage);
+        return;
+    }
+
+    lowStockProducts.forEach(function(product) {
+        const item = document.createElement("button");
+        item.type = "button";
+        item.className = "notification-item";
+        item.dataset.productId = product.id;
+
+        const name = document.createElement("span");
+        name.className = "notification-item-name";
+        name.textContent = product.quantity <= 0
+            ? `${product.name} - Out of Stock`
+            : `${product.name} - Low Stock`;
+
+        const detail = document.createElement("span");
+        detail.className = "notification-item-detail";
+        detail.textContent =
+            `${product.quantity} ${product.unit} remaining (alert limit: ${product.lowStockLimit} ${product.unit})`;
+
+        item.append(name, detail);
+        notificationList.appendChild(item);
+    });
+}
+
+notificationButton.addEventListener("click", function() {
+    const isExpanded = notificationButton.getAttribute("aria-expanded") === "true";
+    notificationButton.setAttribute("aria-expanded", String(!isExpanded));
+    notificationPanel.hidden = isExpanded;
+});
+
+notificationList.addEventListener("click", function(event) {
+    const notification = event.target.closest("[data-product-id]");
+    if (!notification) return;
+
+    const productId = String(notification.dataset.productId);
+    showProducts(
+        product => String(product.id) === productId,
+        "Low Stock Alert",
+        "Product that has reached its low-stock alert limit"
+    );
+    notificationPanel.hidden = true;
+    notificationButton.setAttribute("aria-expanded", "false");
+});
+
+document.addEventListener("click", function(event) {
+    if (!event.target.closest(".notification-wrapper")) {
+        notificationPanel.hidden = true;
+        notificationButton.setAttribute("aria-expanded", "false");
+    }
+});
+
+document.addEventListener("keydown", function(event) {
+    if (event.key === "Escape" && !notificationPanel.hidden) {
+        notificationPanel.hidden = true;
+        notificationButton.setAttribute("aria-expanded", "false");
+        notificationButton.focus();
+    }
+});
 
 
 // 3. Get Products
@@ -615,16 +705,6 @@ renderReport();
     );
 
 
-    // Low Stock Alert
-
-    if (selectedProduct.quantity <= selectedProduct.lowStockLimit) {
-
-        alert(
-            `LOW STOCK ALERT!\n\n${selectedProduct.name} ka stock ab sirf ${selectedProduct.quantity} ${selectedProduct.unit} reh gaya hai.`
-        );
-
-    }
-
 });
 
 
@@ -752,6 +832,8 @@ function updateDashboardStats() {
         `${percentage(lowStock)}%`;
     document.getElementById("outOfStockProgress").style.width =
         `${percentage(outOfStock)}%`;
+
+    renderNotifications();
 
 }
 
